@@ -363,7 +363,6 @@ void main() {
     print("Area of circle is = $ans");
   }
 }
-
 20. Looping Programs 
 a. Write a program to print the 1 to 10 using For loop.
    void main()
@@ -438,7 +437,7 @@ g. Write a program to print the number in reverse order. :
        number = number ~/ 10;
       int reversed = (num1 * 1000) + (num2 * 100) + (num3 * 10) + number;
       print('$reversed');
-    }
+      }
 h .Write a program to find out the max from given number (E.g. No: -1562 Max number is 6 ):
      void main() {
      var list1 = [1, 5, 6, 2];

@@ -1,0 +1,811 @@
+1. Create an application to take input number from user and print its reverse number in TextView without button.
+import 'package:flutter/material.dart';
+
+class Question1 extends StatefulWidget {
+  const Question1({super.key});
+
+  @override
+  State<Question1> createState() => _Question1State();
+}
+
+class _Question1State extends State<Question1> {
+  bool? status = true;
+  List<int> numList = [];
+  Color? colorname;
+  String result = "0";
+  int? a;
+  int? num;
+  int? reverse;
+
+  TextEditingController numbercontroller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("TEXTFORM FIELD")),
+      body: Container(
+        width: double.maxFinite,
+        height: double.maxFinite,
+        color: status! ? colorname : Colors.deepOrange,
+        child: Column(children: [
+          TextFormField(
+            controller: numbercontroller,
+            decoration: const InputDecoration(
+              focusedBorder: const OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.greenAccent)),
+              label: const Text("Enter Number"),
+              hintText: "Enter Number",
+            ),
+          ),
+          ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  int num = int.parse(numbercontroller.text.toString());
+                  int a, reverse = 0, remainder;
+                  // int  num = int.parse(numbercontroller.text.toString());
+                  while (num != 0) {
+                    remainder = num % 10;
+                    reverse = reverse * 10 + remainder;
+                  }
+                  result = ("$num");
+                });
+              },
+              style: ElevatedButton.styleFrom(primary: Colors.amberAccent),
+              child: Text("Submit")),
+          Text(
+            "$result",
+            style: TextStyle(fontSize: 25),
+          )
+        ]),
+      ),
+    );
+  }
+}
+
+
+2. Create an application to input 2 numbers from user and all numbers between those 2 numbers in next activity
+import 'package:flutter/material.dart';
+
+class Question2 extends StatefulWidget {
+  const Question2({super.key});
+
+  @override
+  State<Question2> createState() => _Question2State();
+}
+
+class _Question2State extends State<Question2> {
+  dynamic result;
+  List abc = [];
+  final _textControllerOne = TextEditingController();
+  final _textControllerTwo = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("App Bar"),
+        ),
+        body: Container(
+          padding: const EdgeInsets.all(30),
+          child: ListView(
+            children: [
+              TextFormField(
+                controller: _textControllerOne,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                    hintText: "Enter First Number..",
+                    border: const OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.verified_user_outlined),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          _textControllerOne.clear();
+                        },
+                        icon: const Icon(Icons.clear))),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 30),
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: _textControllerTwo,
+                  decoration: InputDecoration(
+                      hintText: "Enter Second Number..",
+                      border: const OutlineInputBorder(),
+                      prefixIcon: const Icon(Icons.verified_user_outlined),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            _textControllerTwo.clear();
+                          },
+                          icon: const Icon(Icons.clear))),
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 30),
+                child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        int a = int.parse(_textControllerOne.text.toString());
+                        int b = int.parse(_textControllerTwo.text.toString());
+                        abc = [];
+                        if (a > b) {
+                          for (int i = a; i > b; i--) {
+                            if (i != a) {
+                              abc.add(i);
+                            }
+                          }
+                          result = abc
+                              .toString()
+                              .replaceAll(']', '')
+                              .replaceAll('[', '');
+                        } else {
+                          for (int i = a; i < b; i++) {
+                            if (i != a) {
+                              abc.add(i);
+                            }
+                          }
+                          result = abc
+                              .toString()
+                              .replaceAll('[', '')
+                              .replaceAll(']', '');
+                        }
+                      });
+                    },
+                    child: const Text(
+                      "View",
+                      style: TextStyle(),
+                    )),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 30),
+                child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _textControllerOne.clear();
+                        _textControllerTwo.clear();
+
+                        abc = [];
+                      });
+                    },
+                    child: const Text("Clear")),
+              ),
+              abc.isNotEmpty
+                  ? Container(
+                      margin: const EdgeInsets.only(top: 50),
+                      padding: EdgeInsets.all(20),
+                      height: 250,
+                      color: const Color.fromARGB(255, 165, 192, 238),
+                      child: Center(
+                        child: SingleChildScrollView(
+                          child: Text(
+                            "$result",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w200,
+                              letterSpacing: 1,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox()
+            ],
+          ),
+        ));
+  }
+}
+
+3. Create an application with radio buttons (Add, Substraction, Multiply, Division) EditText (number1, number2) and print result as per user choice from radio button in TextView
+import 'package:flutter/material.dart';
+
+class question3 extends StatefulWidget {
+  const question3({super.key});
+
+  @override
+  State<question3> createState() => _question3State();
+}
+
+class _question3State extends State<question3> {
+  TextEditingController num1controller = new TextEditingController();
+  TextEditingController num2controller = new TextEditingController();
+  double? result;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("TEXTFORM FIELD")),
+      body: Container(
+        width: double.maxFinite,
+        margin: EdgeInsets.only(left: 80, right: 80),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextFormField(
+              controller: num1controller,
+              decoration: const InputDecoration(
+                focusedBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.greenAccent)),
+                label: const Text("Enter Number1"),
+                hintText: "Enter Number1",
+              ),
+            ),
+            TextFormField(
+              controller: num2controller,
+              decoration: const InputDecoration(
+                focusedBorder: const OutlineInputBorder(
+                    borderSide: const BorderSide(color: Colors.greenAccent)),
+                label: const Text("Enter Number2"),
+                hintText: "Enter Number2",
+              ),
+            ),
+            RadioListTile(
+                title: Text("Addition"),
+                value: "Addition",
+                groupValue: result,
+                onChanged: (((value) {
+                  setState(() {
+                    int sum = int.parse(num1controller.text) +
+                        int.parse(num2controller.text);
+                    result = sum.toDouble();
+                  });
+                }))),
+            RadioListTile(
+                title: Text("Substraction"),
+                value: "Substraction",
+                groupValue: result,
+                onChanged: (((value) {
+                  setState(() {
+                    int sum = int.parse(num1controller.text) -
+                        int.parse(num2controller.text);
+                    result = sum.toDouble();
+                  });
+                }))),
+            RadioListTile(
+                title: Text("multiply"),
+                value: "multiply",
+                groupValue: result,
+                onChanged: (((value) {
+                  setState(() {
+                    int sum = int.parse(num1controller.text) *
+                        int.parse(num2controller.text);
+                    result = sum.toDouble();
+                  });
+                }))),
+            RadioListTile(
+                title: Text("division"),
+                value: "division",
+                groupValue: result,
+                onChanged: (((value) {
+                  setState(() {
+                    int sum = int.parse(num1controller.text) ~/
+                        int.parse(num2controller.text);
+                    result = sum.toDouble();
+                  });
+                }))),
+            Text('Result : $result'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+4. create an application to change background when button is clicked
+import 'package:flutter/material.dart';
+
+class buttontask2 extends StatefulWidget {
+  const buttontask2({super.key});
+
+  @override
+  State<buttontask2> createState() => _buttontask2State();
+}
+
+class _buttontask2State extends State<buttontask2> {
+  Color? colorname;
+  bool status = true;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: status ? Colors.blue : Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+                height: 50,
+                width: 100,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 0.5,
+                    ),
+                    color: Colors.blueGrey,
+                    borderRadius: BorderRadius.circular(5)),
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      if (status) {
+                        status = false;
+                      } else {
+                        status = true;
+                      }
+                    });
+                  },
+                  child: Text("Blue"),
+                )),
+            Container(
+                height: 50,
+                width: 100,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.only(top: 20, bottom: 20),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 0.5,
+                    ),
+                    color: Colors.lightGreen,
+                    borderRadius: BorderRadius.circular(5)),
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      if (status) {
+                        status = false;
+                      } else {
+                        status = true;
+                      }
+                    });
+                  },
+                  child: Text("Green"),
+                )),
+            Container(
+                height: 50,
+                width: 100,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 0.5,
+                    ),
+                    color: Colors.purple,
+                    borderRadius: BorderRadius.circular(5)),
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      colorname = Colors.purple;
+                    });
+                  },
+                  child: Text("Purple"),
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+5. create an application to increate font size when plus button click and decrease when minus button click 
+import 'package:flutter/material.dart';
+
+class buttontask extends StatefulWidget {
+  const buttontask({super.key});
+
+  @override
+  State<buttontask> createState() => _buttontaskState();
+}
+
+class _buttontaskState extends State<buttontask> {
+  double custfontsize = 12;
+
+  ElevatedButton? elvbutton1;
+  ElevatedButton? evlbutton2;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+                decoration: BoxDecoration(
+                    border: Border.all(width: 0.5),
+                    color: Colors.purple,
+                    borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.all(10),
+                child: Text("Hello Welcome",
+                    style: TextStyle(
+                        fontSize: custfontsize, color: Colors.white))),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    custfontsize++;
+                  });
+                },
+                child: Text("+")),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    custfontsize--;
+                  });
+                },
+                child: Text(
+                  "-",
+                  style: TextStyle(color: Colors.white),
+                ))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+6. create an application to display n edittext where n is number input by user 
+import 'package:flutter/material.dart';
+
+class mytextfield2 extends StatefulWidget {
+  const mytextfield2({super.key});
+
+  @override
+  State<mytextfield2> createState() => _mytextfield2State();
+}
+
+class _mytextfield2State extends State<mytextfield2> {
+  TextEditingController mycontroller = TextEditingController();
+  String? msg = "ANDROID";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Text(
+              msg!,
+              style: TextStyle(fontSize: 26),
+            ),
+            SizedBox(
+              height: 26,
+            ),
+            TextField(
+              controller: mycontroller,
+              decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(25))),
+            ),
+            SizedBox(
+              height: 26,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    msg = mycontroller.text.toString();
+                  });
+                },
+                child: Text("Submit"))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+7. create an application to display Textview when checkbox is checked and hide otherwise
+import 'package:flutter/material.dart';
+
+class Question7 extends StatefulWidget {
+  const Question7({super.key});
+
+  @override
+  State<Question7> createState() => _Question7State();
+}
+
+class _Question7State extends State<Question7> {
+  List<String> mylist = [];
+  bool Android = false;
+  bool java = false;
+  bool Dart = false;
+  bool Python = false;
+  bool Flutter = false;
+  String? result = "0";
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(children: [
+        Row(
+          children: [
+            Text("Android"),
+            Checkbox(
+                value: Android,
+                onChanged: ((value) {
+                  setState(() {
+                    Android = value!;
+                    result = value.toString();
+                  });
+                  if (Android) {
+                    mylist.add("Android");
+                  } else {
+                    mylist.remove("Android");
+                  }
+                }))
+          ],
+        ),
+        Row(
+          children: [
+            Text("java"),
+            Checkbox(
+                value: java,
+                onChanged: ((value) {
+                  setState(() {
+                    java = value!;
+                    result = value.toString();
+                  });
+                  if (java) {
+                    mylist.add("java");
+                  } else {
+                    mylist.remove("java");
+                  }
+                }))
+          ],
+        ),
+        Row(
+          children: [
+            Text("Dart"),
+            Checkbox(
+                value: Dart,
+                onChanged: ((value) {
+                  setState(() {
+                    Dart = value!;
+                    result = value.toString();
+                  });
+                  if (Dart) {
+                    mylist.add("Dart");
+                  } else {
+                    mylist.remove("Dart");
+                  }
+                }))
+          ],
+        ),
+        Row(
+          children: [
+            Text("python"),
+            Checkbox(
+                value: Python,
+                onChanged: ((value) {
+                  setState(() {
+                    Python = value!;
+                    result = value.toString();
+                  });
+                  if (Python) {
+                    mylist.add("Python");
+                  } else {
+                    mylist.remove("Python");
+                  }
+                }))
+          ],
+        ),
+        Row(
+          children: [
+            Text("Flutter"),
+            Checkbox(
+                value: Flutter,
+                onChanged: ((value) {
+                  setState(() {
+                    Flutter = value!;
+                    result = value.toString();
+                  });
+                  if (Flutter) {
+                    mylist.add("Flutter");
+                  } else {
+                    mylist.remove("Flutter");
+                  }
+                }))
+          ],
+        ),
+        Text(" result=$result"),
+      ]),
+    );
+  }
+}
+
+8. Write a program to show four images around Textview. 
+import 'package:flutter/material.dart';
+
+class myimageexample extends StatelessWidget {
+  const myimageexample({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Images_example")),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.only(left: 60),
+            padding: EdgeInsets.all(10),
+            child: Image.asset("assets/image-1.jpg"),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 60),
+            padding: EdgeInsets.all(10),
+            child: Image.asset("assets/image-1.jpg"),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 60),
+            padding: EdgeInsets.all(10),
+            child: Image.asset("assets/image-1.jpg"),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 60),
+            padding: EdgeInsets.all(10),
+            child: Image.asset("assets/image-1.jpg"),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+9. Write a program in android display screen color which the Color will be select from the radio button. 
+import 'package:flutter/material.dart';
+
+class Question9 extends StatefulWidget {
+  const Question9({super.key});
+
+  @override
+  State<Question9> createState() => _Question9State();
+}
+
+class _Question9State extends State<Question9> {
+  TextEditingController clrcontroller = new TextEditingController();
+  String? color;
+  String? result;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("TEXTFORM FIELD")),
+      body: Container(
+        width: double.maxFinite,
+        margin: EdgeInsets.only(left: 80, right: 80),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            RadioListTile(
+                title: Text("red"),
+                value: "red",
+                groupValue: result,
+                onChanged: (((value) {
+                  setState(() {
+                    result = value.toString();
+                    Text(
+                      " result=$result",
+                      style: TextStyle(color: Colors.red),
+                    );
+                  });
+                }))),
+            RadioListTile(
+                title: Text("yellow"),
+                value: "yellow",
+                groupValue: result,
+                onChanged: (((value) {
+                  setState(() {
+                    result = value.toString();
+                    Text(
+                      " result=$result",
+                      style: TextStyle(color: Colors.yellow),
+                    );
+                  });
+                }))),
+            RadioListTile(
+                title: Text("green"),
+                value: "green",
+                groupValue: result,
+                onChanged: (((value) {
+                  setState(() {
+                    result = value.toString();
+                    Text(
+                      " result=$result",
+                      style: TextStyle(color: Colors.green),
+                    );
+                  });
+                }))),
+            RadioListTile(
+                title: Text("purple"),
+                value: "purple",
+                groupValue: result,
+                onChanged: (((value) {
+                  setState(() {
+                    result = value.toString();
+                    Text(
+                      " result=$result",
+                      style: TextStyle(color: Colors.purple),
+                    );
+                  });
+                }))),
+            Text(" result=$result")
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+10. Write a program you have take three seek bar controls. From three Seekbar which Seekbar value changed the background color of device will be changed.
+import 'package:flutter/material.dart';
+
+class seekbar_example extends StatefulWidget {
+  const seekbar_example({super.key});
+
+  @override
+  State<seekbar_example> createState() => _seekbar_exampleState();
+}
+
+class _seekbar_exampleState extends State<seekbar_example> {
+  int change_value = 50;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Slider(
+                min: 1,
+                max: 100,
+                activeColor: Colors.blueGrey,
+                inactiveColor: Colors.black,
+                label: "${change_value.round()}",
+                value: change_value.toDouble(),
+                onChanged: (value) {
+                  setState(() {
+                    print("value=$change_value");
+                    change_value = value.round();
+                  });
+                }),
+            Text(
+              "${change_value}",
+              style: TextStyle(fontSize: 36),
+            ),
+            Slider(
+                min: 1,
+                max: 100,
+                activeColor: Colors.blueGrey,
+                inactiveColor: Colors.black,
+                label: "${change_value.round()}",
+                value: change_value.toDouble(),
+                onChanged: (value) {
+                  setState(() {
+                    print("value=$change_value");
+                    change_value = value.round();
+                  });
+                }),
+            Text(
+              "${change_value}",
+              style: TextStyle(fontSize: 36),
+            ),
+            Slider(
+                min: 1,
+                max: 100,
+                activeColor: Colors.blueGrey,
+                inactiveColor: Colors.black,
+                label: "${change_value.round()}",
+                value: change_value.toDouble(),
+                onChanged: (value) {
+                  setState(() {
+                    print("value=$change_value");
+                    change_value = value.round();
+                  });
+                }),
+            Text(
+              "${change_value}",
+              style: TextStyle(fontSize: 36),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
